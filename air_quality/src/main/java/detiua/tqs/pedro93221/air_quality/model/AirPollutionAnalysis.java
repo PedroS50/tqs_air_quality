@@ -6,9 +6,15 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class AirPollutionAnalysis {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @NotNull
+    @OneToMany(targetEntity=AirPollution.class, cascade = CascadeType.ALL)
     private List<AirPollution> airPollution;
 
     @NotNull
@@ -37,16 +43,6 @@ public class AirPollutionAnalysis {
 
     public void setLocation(Location location) {
         this.location = location;
-    }
-
-    public AirPollutionAnalysis airPollution(List<AirPollution> airPollution) {
-        setAirPollution(airPollution);
-        return this;
-    }
-
-    public AirPollutionAnalysis location(Location location) {
-        setLocation(location);
-        return this;
     }
 
     @Override

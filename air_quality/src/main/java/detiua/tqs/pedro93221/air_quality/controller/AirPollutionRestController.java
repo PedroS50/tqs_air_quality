@@ -2,6 +2,7 @@ package detiua.tqs.pedro93221.air_quality.controller;
 
 import detiua.tqs.pedro93221.air_quality.service.AirPollutionService;
 import detiua.tqs.pedro93221.air_quality.model.*;
+import detiua.tqs.pedro93221.air_quality.cache.CacheDetails;
 
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -55,5 +57,10 @@ public class AirPollutionRestController {
         AirPollutionAnalysis result = airPollutionService.getHistoricalAirPollution(location, ldtStart, ldtEnd);
 
         return result;
+    }
+
+    @GetMapping(path="/cache")
+    public List<CacheDetails> getCacheDetails( @RequestParam(value = "type", required = false) String cacheType) {
+        return airPollutionService.getCache(cacheType);
     }
 }

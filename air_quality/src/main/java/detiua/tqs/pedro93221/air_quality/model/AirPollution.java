@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "airpollution")
 public class AirPollution {
 
     @Id
@@ -79,7 +78,5 @@ public class AirPollution {
             ", components='" + getComponents() + "'" +
             "}";
     }
-
-
 
 }
