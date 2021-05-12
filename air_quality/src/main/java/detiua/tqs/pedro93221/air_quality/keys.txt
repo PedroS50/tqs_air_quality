@@ -1,0 +1,4 @@
+{
+    "openweathermap": "ffd514deae544925c4b7e9b2e2c40ebc",
+    "geocoding": "AIzaSyCUI3OHcTORhu7mfVKWymcZc-DiX_gLf4I"
+}
