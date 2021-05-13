@@ -13,14 +13,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/api")
 public class AirPollutionRestController {
 
     @Autowired
     private AirPollutionService airPollutionService;
 
-    @GetMapping(path="/current")
-    public AirPollutionAnalysis getCurrentAirPollution( @RequestParam(value = "address", required = true) String address) {
+    @GetMapping(path = "/current")
+    public AirPollutionAnalysis getCurrentAirPollution(
+            @RequestParam(value = "address", required = true) String address) {
         Location location = airPollutionService.getLocation(address);
 
         AirPollutionAnalysis result = airPollutionService.getCurrentAirPollution(location);
@@ -28,8 +30,9 @@ public class AirPollutionRestController {
         return result;
     }
 
-    @GetMapping(path="/forecast")
-    public AirPollutionAnalysis getForecastAirPollution( @RequestParam(value = "address", required = true) String address) {
+    @GetMapping(path = "/forecast")
+    public AirPollutionAnalysis getForecastAirPollution(
+            @RequestParam(value = "address", required = true) String address) {
         Location location = airPollutionService.getLocation(address);
 
         AirPollutionAnalysis result = airPollutionService.getForecastAirPollution(location);
@@ -37,21 +40,23 @@ public class AirPollutionRestController {
         return result;
     }
 
-    @GetMapping(path="/history")
-    public AirPollutionAnalysis getHistoricalAirPollution(  @RequestParam(value = "address", required = true) String address,
-                                                            @RequestParam(value = "start", required = true) String start,
-                                                            @RequestParam(value = "end", required = true) String end ) {
+    @GetMapping(path = "/history")
+    public AirPollutionAnalysis getHistoricalAirPollution(
+            @RequestParam(value = "address", required = true) String address,
+            @RequestParam(value = "start", required = true) String start,
+            @RequestParam(value = "end", required = true) String end) {
 
         Location location = airPollutionService.getLocation(address);
-        
+
         LocalDateTime ldtStart = null, ldtEnd = null;
-        
+
         try {
             ldtStart = LocalDateTime.parse(start);
             ldtEnd = LocalDateTime.parse(end);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
-        if ( ldtStart == null || ldtEnd == null || ldtStart.isAfter(ldtEnd) )
+        if (ldtStart == null || ldtEnd == null || ldtStart.isAfter(ldtEnd))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid time interval.");
 
         AirPollutionAnalysis result = airPollutionService.getHistoricalAirPollution(location, ldtStart, ldtEnd);
@@ -59,8 +64,8 @@ public class AirPollutionRestController {
         return result;
     }
 
-    @GetMapping(path="/cache")
-    public List<CacheDetails> getCacheDetails( @RequestParam(value = "type", required = false) String cacheType) {
+    @GetMapping(path = "/cache")
+    public List<CacheDetails> getCacheDetails(@RequestParam(value = "type", required = false) String cacheType) {
         return airPollutionService.getCache(cacheType);
     }
 }

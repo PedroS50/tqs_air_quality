@@ -1,0 +1,9 @@
+.pagination {
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    right:50vh; 
+    left:50vh;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,67 @@
+
+<div class="container mt-5">
+    <div class="row">
+        <button class="btn btn-secondary" routerLink="/"><i class="bi bi-arrow-bar-left pr-2"></i>Go Back Home</button>
+    </div>
+
+    <div class="alert alert-danger mt-5" *ngIf="this.error">
+        An error has occurred while fetching data from remote API.<br />
+        Error Code: {{ this.errorCode }}
+    </div>
+
+    <div class="row mt-2" *ngIf="!this.error">
+        <h3 class="pl-1 ">You're viewing results for:</h3>
+    </div>
+    <div class="row mt-2" *ngIf="!this.error">
+        <div class="col">
+            <div class="row mb-0">
+                <h4><i class="bi bi-geo-alt-fill pr-2"></i>{{ this.analysis.location.address }}</h4>
+                <br />
+                <h4>({{ this.analysis.location.coordinates.latitude }}, {{ this.analysis.location.coordinates.longitude }})</h4>
+            </div>
+            <div class="row mt-0" *ngIf="this.searchService.getType()=='history'">
+                <h6>{{ this.searchService.getStart() }} -> {{ this.searchService.getEnd() }}</h6>
+            </div>
+        </div>
+        
+    </div>
+    <div class="alert alert-danger mt-5" *ngIf="this.isEmpty">
+        No results have been found.
+    </div>
+    <table class="table table-striped text-center mt-5" *ngIf="!this.error && !this.isEmpty" >
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">AQI</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">co</th>
+            <th scope="col">no</th>
+            <th scope="col">no2</th>
+            <th scope="col">o3</th>
+            <th scope="col">so3</th>
+            <th scope="col">pm2_5</th>
+            <th scope="col">pm10</th>
+            <th scope="col">nh3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let airPol of this.analysis.airPollution | paginate: { itemsPerPage: 25, currentPage: page }; let i = index">
+                <th scope="row">{{i+1 + (page-1)*25}}</th>
+                <td>{{ airPol.aqi }}</td>
+                <td>{{ airPol.dtTimestamp }}</td>
+                <td>{{ airPol.components.co }}</td>
+                <td>{{ airPol.components.no }}</td>
+                <td>{{ airPol.components.no2 }}</td>
+                <td>{{ airPol.components.o3 }}</td>
+                <td>{{ airPol.components.so3 }}</td>
+                <td>{{ airPol.components.pm2_5 }}</td>
+                <td>{{ airPol.components.pm10 }}</td>
+                <td>{{ airPol.components.nh3 }}</td>
+            </tr>            
+        </tbody>
+    </table>
+
+    <div class="has-text-centered pagination" *ngIf="!this.error && !this.isEmpty && (this.analysis.airPollution.length > 25)">
+        <pagination-controls (pageChange)="page = $event" class=""></pagination-controls>
+    </div>
+</div>

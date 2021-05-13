@@ -1,0 +1,87 @@
+<div class="container" >
+    <div class="col">
+        <div class="row d-flex justify-content-center">
+            <h1>Search for a region's Air Quality analysis!</h1>
+        </div>
+        <form class="search-form mt-3" [formGroup]="searchForm">
+            <div class="col">
+                <div class="row">
+                    <div class="input-group">
+                        <select id="typeSelect" class="custom-select col-2 bg-secondary text-white" #typeSelect (change)="changeType(typeSelect.value)">
+                            <option selected value="current">Current</option>
+                            <option value="forecast">Forecast</option>
+                            <option value="history">Historical</option>
+                        </select>
+                        <input type="text" id="addressInput" class="form-control" placeholder="Address" formControlName="inputAddress" [(ngModel)]="address">
+                        <button type="submit" class="btn btn-info ml-3" (click)="search()">Search</button>
+                    </div>
+                    
+                </div>
+                <div id="defineInterval" style="display: none;">
+                    <div class="row mt-4 mb-0">
+                        <div class="col-2"></div>
+                        <div class="col-4 d-flex justify-content-center">Start Date</div>
+                        <div class="col-1"></div>
+                        <div class="col-4 d-flex justify-content-center">End Date</div>
+
+                    </div>
+                    <div class="row" id="interval">
+                        <div class="col-2"></div>
+                        <div class="col-4 d-flex justify-content-center align-self-center" id="startDate">
+                            <div class="row">
+                                <div class="col part">
+                                    <input type="text" id="startDay" class="form-control" placeholder="DD" formControlName="inputStartDay">
+                                </div>
+                                <h5 class="align-self-center mb-0">-</h5>
+                                <div class="col part">
+                                    <input type="text" id="startMonth" class="form-control" placeholder="MM" formControlName="inputStartMonth">
+                                </div>
+                                <h5 class="align-self-center mb-0">-</h5>
+                                <div class="col part">
+                                    <input type="text" id="startYear" class="form-control" placeholder="YYYY" formControlName="inputStartYear">
+                                </div>
+
+                                <div class="col part ml-3">
+                                    <input type="text" id="startHour" class="form-control" placeholder="hh" formControlName="inputStartHour">
+                                </div>
+                                <h5 class="align-self-center mb-0">:</h5>
+                                <div class="col part">
+                                    <input type="text" id="startMinutes" class="form-control" placeholder="mm" formControlName="inputStartMinutes">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-1 d-flex justify-content-center align-self-center pl-3">
+                            until...
+                        </div>
+
+                        <div class="col-4 d-flex justify-content-center align-self-center" id="endDate">
+                            <div class="row">
+                                <div class="col part">
+                                    <input type="text" id="endDay" class="form-control" placeholder="DD" formControlName="inputEndDay">
+                                </div>
+                                <h5 class="align-self-center mb-0">-</h5>
+                                <div class="col part">
+                                    <input type="text" id="endMonth" class="form-control" placeholder="MM" formControlName="inputEndMonth">
+                                </div>
+                                <h5 class="align-self-center mb-0">-</h5>
+                                <div class="col part">
+                                    <input type="text" id="startYear" class="form-control" placeholder="YYYY" formControlName="inputEndYear">
+                                </div>
+
+                                <div class="col part ml-3">
+                                    <input type="text" id="endHour" class="form-control" placeholder="hh" formControlName="inputEndHour">
+                                </div>
+                                <h5 class="align-self-center mb-0">:</h5>
+                                <div class="col part">
+                                    <input type="text" id="endMinutes" class="form-control" placeholder="mm" formControlName="inputEndMinutes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

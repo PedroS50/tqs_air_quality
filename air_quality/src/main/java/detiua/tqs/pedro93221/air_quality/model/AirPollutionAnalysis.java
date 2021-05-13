@@ -14,11 +14,11 @@ public class AirPollutionAnalysis {
     private Long id;
 
     @NotNull
-    @OneToMany(targetEntity=AirPollution.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = AirPollution.class, cascade = CascadeType.ALL)
     private List<AirPollution> airPollution;
 
     @NotNull
-    @OneToOne(targetEntity=Location.class, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Location.class, cascade = CascadeType.ALL)
     private Location location;
 
     public AirPollutionAnalysis() {
@@ -53,7 +53,8 @@ public class AirPollutionAnalysis {
             return false;
         }
         AirPollutionAnalysis airPollutionAnalysis = (AirPollutionAnalysis) o;
-        return Objects.equals(airPollution, airPollutionAnalysis.airPollution) && Objects.equals(location, airPollutionAnalysis.location);
+        return Objects.equals(airPollution, airPollutionAnalysis.airPollution)
+                && Objects.equals(location, airPollutionAnalysis.location);
     }
 
     @Override
@@ -63,10 +64,7 @@ public class AirPollutionAnalysis {
 
     @Override
     public String toString() {
-        return "{" +
-            " location='" + getLocation() + "'" +
-            ", airPollution='" + getAirPollution() + "'" +
-            "}";
+        return "{" + " location='" + getLocation() + "'" + ", airPollution='" + getAirPollution() + "'" + "}";
     }
 
 }

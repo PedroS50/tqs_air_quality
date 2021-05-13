@@ -49,7 +49,7 @@ public class AirPollutionService {
         try {
             JSONParser parser = new JSONParser();
 
-            JSONObject jsonObject = (JSONObject) parser.parse( new FileReader(path) );
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(path));
 
             return (String) jsonObject.get("openweathermap");
 
@@ -65,7 +65,7 @@ public class AirPollutionService {
         try {
             JSONParser parser = new JSONParser();
 
-            JSONObject jsonObject = (JSONObject) parser.parse( new FileReader(path) );
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(path));
 
             return (String) jsonObject.get("geocoding");
 
@@ -78,7 +78,7 @@ public class AirPollutionService {
     public AirPollutionAnalysis getCurrentAirPollution(Location location) {
         currentCacheDetails.addRequest();
 
-        if ( currentCache.exists(location) ) {
+        if (currentCache.exists(location)) {
             currentCacheDetails.addHit();
             return currentCache.getAnalysis(location);
         }
@@ -102,7 +102,7 @@ public class AirPollutionService {
     public AirPollutionAnalysis getForecastAirPollution(Location location) {
         forecastCacheDetails.addRequest();
 
-        if ( forecastCache.exists(location) ) {
+        if (forecastCache.exists(location)) {
             forecastCacheDetails.addHit();
             return forecastCache.getAnalysis(location);
         }
@@ -126,7 +126,7 @@ public class AirPollutionService {
     public AirPollutionAnalysis getHistoricalAirPollution(Location location, LocalDateTime start, LocalDateTime end) {
         historicalCacheDetails.addRequest();
 
-        if ( historicalCache.exists(location) ) {
+        if (historicalCache.exists(location)) {
             historicalCacheDetails.addHit();
             return historicalCache.getAnalysis(location);
         }
@@ -157,8 +157,8 @@ public class AirPollutionService {
         Location newLocation = new Location(address);
         try {
             JSONParser parser = new JSONParser();
-            
-            JSONObject jsonResponse = (JSONObject) parser.parse( response );
+
+            JSONObject jsonResponse = (JSONObject) parser.parse(response);
 
             JSONArray resultsArray = (JSONArray) jsonResponse.get("results");
 
@@ -168,12 +168,13 @@ public class AirPollutionService {
 
             JSONObject location = (JSONObject) geometry.get("location");
 
-            newLocation.setCoordinates( new Coordinates( Double.valueOf(location.get("lat").toString()), Double.valueOf(location.get("lng").toString()) ) );
+            newLocation.setCoordinates(new Coordinates(Double.valueOf(location.get("lat").toString()),
+                    Double.valueOf(location.get("lng").toString())));
 
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid location.");
         }
-        
+
         return newLocation;
     }
 
@@ -181,8 +182,8 @@ public class AirPollutionService {
         ArrayList<AirPollution> airPollutionResults = new ArrayList<>();
         try {
             JSONParser parser = new JSONParser();
-            
-            JSONObject jsonResponse = (JSONObject) parser.parse( apiResponse );
+
+            JSONObject jsonResponse = (JSONObject) parser.parse(apiResponse);
 
             JSONArray resultsArray = (JSONArray) jsonResponse.get("list");
 
@@ -197,26 +198,25 @@ public class AirPollutionService {
 
                 JSONObject components = (JSONObject) result.get("components");
 
-                airPol.setAqi( Integer.valueOf(main.get("aqi").toString()) );
+                airPol.setAqi(Integer.valueOf(main.get("aqi").toString()));
 
-                airPol.setDtTimestamp( EpochtoLDT( Long.valueOf(result.get("dt").toString()) ) );
+                airPol.setDtTimestamp(EpochtoLDT(Long.valueOf(result.get("dt").toString())));
 
-                airPol.setComponents( new Components(
-                    Double.valueOf( components.get("co").toString()     ),
-                    Double.valueOf( components.get("no").toString()     ),
-                    Double.valueOf( components.get("no2").toString()    ),
-                    Double.valueOf( components.get("o3").toString()     ),
-                    Double.valueOf( components.get("so2").toString()    ),
-                    Double.valueOf( components.get("pm2_5").toString()  ),
-                    Double.valueOf( components.get("pm10").toString()   ),
-                    Double.valueOf( components.get("nh3").toString()    ))
-                );
+                airPol.setComponents(new Components(Double.valueOf(components.get("co").toString()),
+                        Double.valueOf(components.get("no").toString()),
+                        Double.valueOf(components.get("no2").toString()),
+                        Double.valueOf(components.get("o3").toString()),
+                        Double.valueOf(components.get("so2").toString()),
+                        Double.valueOf(components.get("pm2_5").toString()),
+                        Double.valueOf(components.get("pm10").toString()),
+                        Double.valueOf(components.get("nh3").toString())));
 
                 airPollutionResults.add(airPol);
             }
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There was an error retrieving air pollutions results. Please make sure the value inserted are correct.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "There was an error retrieving air pollutions results. Please make sure the value inserted are correct.");
         }
 
         return airPollutionResults;

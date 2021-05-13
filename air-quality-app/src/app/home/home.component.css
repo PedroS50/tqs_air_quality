@@ -1,0 +1,45 @@
+
+.container {
+    margin-top: 5vh;
+}
+
+.search-form {
+    width: 100%;
+}
+
+#addressInput {
+    width: 50%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#interval .part {
+    font-size: smaller;
+    padding-right: 10px;
+    padding: 5px 5px;
+    max-width: 60px;
+}
+
+#interval .part .form-control {
+    font-size: 15px;
+    text-align: center;
+    padding: 0;
+}
+
+#interval .part .form-control::placeholder {
+    font-size: 15px;
+    text-align: center;
+}
+
+#startDate {
+    border: 2px solid black;
+    border-top: 1px solid black;
+    border-radius: 7px;
+}
+
+#endDate {
+    border: 2px solid black;
+    border-top: 1px solid black;
+    border-radius: 7px;
+}
+

@@ -8,6 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface AirPollutionRepository extends JpaRepository<AirPollution, Long>  {
+public interface AirPollutionRepository extends JpaRepository<AirPollution, Long> {
 
 }

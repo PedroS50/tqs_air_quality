@@ -53,12 +53,7 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return "{" +
-            " latitude='" + getLatitude() + "'" +
-            ", longitude='" + getLongitude() + "'" +
-            "}";
+        return "{" + " latitude='" + getLatitude() + "'" + ", longitude='" + getLongitude() + "'" + "}";
     }
 
-
-    
 }

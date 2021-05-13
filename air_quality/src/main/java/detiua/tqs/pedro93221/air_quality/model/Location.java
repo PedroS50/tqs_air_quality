@@ -20,7 +20,8 @@ public class Location {
     @NotNull
     private String address;
 
-    public Location() {}
+    public Location() {
+    }
 
     public Location(String address) {
         this.address = address;
@@ -65,11 +66,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return "{" +
-            " coordinates='" + getCoordinates() + "'" +
-            ", address='" + getAddress() + "'" +
-            "}";
+        return "{" + " coordinates='" + getCoordinates() + "'" + ", address='" + getAddress() + "'" + "}";
     }
-
 
 }

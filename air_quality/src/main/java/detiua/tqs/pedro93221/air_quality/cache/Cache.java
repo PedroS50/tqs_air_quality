@@ -11,7 +11,7 @@ public class Cache {
     private String type;
     private int ttl;
     private Map<Location, AirPollutionAnalysis> data;
-    private Map<Location, Long> expirationDates;    
+    private Map<Location, Long> expirationDates;
 
     public Cache(int ttl, String type) {
         this.ttl = ttl;
@@ -30,7 +30,7 @@ public class Cache {
 
     public void setAnalysis(Location location, AirPollutionAnalysis airPollutionAnalysis) {
         data.put(location, airPollutionAnalysis);
-        expirationDates.put(location, System.currentTimeMillis()+this.ttl);
+        expirationDates.put(location, System.currentTimeMillis() + this.ttl);
     }
 
     public String getType() {
@@ -49,19 +49,19 @@ public class Cache {
         this.ttl = ttl;
     }
 
-    public Map<Location,AirPollutionAnalysis> getData() {
+    public Map<Location, AirPollutionAnalysis> getData() {
         return this.data;
     }
 
-    public void setData(Map<Location,AirPollutionAnalysis> data) {
+    public void setData(Map<Location, AirPollutionAnalysis> data) {
         this.data = data;
     }
 
-    public Map<Location,Long> getExpirationDates() {
+    public Map<Location, Long> getExpirationDates() {
         return this.expirationDates;
     }
 
-    public void setExpirationDates(Map<Location,Long> expirationDates) {
+    public void setExpirationDates(Map<Location, Long> expirationDates) {
         this.expirationDates = expirationDates;
     }
 
@@ -73,7 +73,8 @@ public class Cache {
             return false;
         }
         Cache cache = (Cache) o;
-        return Objects.equals(type, cache.type) && ttl == cache.ttl && Objects.equals(data, cache.data) && Objects.equals(expirationDates, cache.expirationDates);
+        return Objects.equals(type, cache.type) && ttl == cache.ttl && Objects.equals(data, cache.data)
+                && Objects.equals(expirationDates, cache.expirationDates);
     }
 
     @Override
@@ -83,12 +84,8 @@ public class Cache {
 
     @Override
     public String toString() {
-        return "{" +
-            " type='" + getType() + "'" +
-            ", ttl='" + getTtl() + "'" +
-            ", data='" + getData() + "'" +
-            ", expirationDates='" + getExpirationDates() + "'" +
-            "}";
+        return "{" + " type='" + getType() + "'" + ", ttl='" + getTtl() + "'" + ", data='" + getData() + "'"
+                + ", expirationDates='" + getExpirationDates() + "'" + "}";
     }
 
 }

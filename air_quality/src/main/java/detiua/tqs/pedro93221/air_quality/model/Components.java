@@ -99,7 +99,9 @@ public class Components {
             return false;
         }
         Components components = (Components) o;
-        return co == components.co && no == components.no && no2 == components.no2 && o3 == components.o3 && so3 == components.so3 && pm2_5 == components.pm2_5 && pm10 == components.pm10 && nh3 == components.nh3;
+        return co == components.co && no == components.no && no2 == components.no2 && o3 == components.o3
+                && so3 == components.so3 && pm2_5 == components.pm2_5 && pm10 == components.pm10
+                && nh3 == components.nh3;
     }
 
     @Override
@@ -109,16 +111,9 @@ public class Components {
 
     @Override
     public String toString() {
-        return "{" +
-            " co='" + getCo() + "'" +
-            ", no='" + getNo() + "'" +
-            ", no2='" + getNo2() + "'" +
-            ", o3='" + getO3() + "'" +
-            ", so3='" + getSo3() + "'" +
-            ", pm2_5='" + getPm2_5() + "'" +
-            ", pm10='" + getPm10() + "'" +
-            ", nh3='" + getNh3() + "'" +
-            "}";
+        return "{" + " co='" + getCo() + "'" + ", no='" + getNo() + "'" + ", no2='" + getNo2() + "'" + ", o3='"
+                + getO3() + "'" + ", so3='" + getSo3() + "'" + ", pm2_5='" + getPm2_5() + "'" + ", pm10='" + getPm10()
+                + "'" + ", nh3='" + getNh3() + "'" + "}";
     }
 
 }

@@ -22,7 +22,8 @@ public class AirPollution {
     @NotNull
     private Components components;
 
-    public AirPollution() {}
+    public AirPollution() {
+    }
 
     public AirPollution(int aqi, LocalDateTime dtTimestamp, Components components) {
         this.aqi = aqi;
@@ -62,7 +63,8 @@ public class AirPollution {
             return false;
         }
         AirPollution airPollution = (AirPollution) o;
-        return aqi == airPollution.aqi && dtTimestamp == airPollution.dtTimestamp && Objects.equals(components, airPollution.components);
+        return aqi == airPollution.aqi && dtTimestamp == airPollution.dtTimestamp
+                && Objects.equals(components, airPollution.components);
     }
 
     @Override
@@ -72,11 +74,8 @@ public class AirPollution {
 
     @Override
     public String toString() {
-        return "{" +
-            " aqi='" + getAqi() + "'" +
-            ", dtTimestamp='" + getDtTimestamp() + "'" +
-            ", components='" + getComponents() + "'" +
-            "}";
+        return "{" + " aqi='" + getAqi() + "'" + ", dtTimestamp='" + getDtTimestamp() + "'" + ", components='"
+                + getComponents() + "'" + "}";
     }
 
 }

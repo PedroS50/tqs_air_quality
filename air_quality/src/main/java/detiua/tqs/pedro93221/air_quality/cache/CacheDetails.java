@@ -88,7 +88,8 @@ public class CacheDetails {
             return false;
         }
         CacheDetails cacheDetails = (CacheDetails) o;
-        return Objects.equals(type, cacheDetails.type) && hits == cacheDetails.hits && misses == cacheDetails.misses && nRequests == cacheDetails.nRequests;
+        return Objects.equals(type, cacheDetails.type) && hits == cacheDetails.hits && misses == cacheDetails.misses
+                && nRequests == cacheDetails.nRequests;
     }
 
     @Override
@@ -98,12 +99,8 @@ public class CacheDetails {
 
     @Override
     public String toString() {
-        return "{" +
-            " type='" + getType() + "'" +
-            ", hits='" + getHits() + "'" +
-            ", misses='" + getMisses() + "'" +
-            ", nRequests='" + getNRequests() + "'" +
-            "}";
+        return "{" + " type='" + getType() + "'" + ", hits='" + getHits() + "'" + ", misses='" + getMisses() + "'"
+                + ", nRequests='" + getNRequests() + "'" + "}";
     }
-    
+
 }
