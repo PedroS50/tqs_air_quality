@@ -45,7 +45,7 @@ class AirPollutionRepositoryUnitTest {
     }
 
     @Test
-    void whenHistorricalLocationIsInvalid_thenReturnNull() {
+    void whenHistoricalLocationIsInvalid_thenReturnNull() {
         List<AirPollution> results = airPollutionRepository.getHistoricalAnalysis(invalidLocation, LocalDateTime.now(), LocalDateTime.now());
         assertThat( results, is(nullValue()) );
     

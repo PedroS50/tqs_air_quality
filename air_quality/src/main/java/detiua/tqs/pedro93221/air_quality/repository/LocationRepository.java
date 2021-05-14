@@ -55,17 +55,17 @@ public class LocationRepository {
         Location newLocation = null;
         try {
 
-            JSONParser parser = new JSONParser();
+            var parser = new JSONParser();
 
-            JSONObject jsonResponse = (JSONObject) parser.parse(response);
+            var jsonResponse = (JSONObject) parser.parse(response);
 
-            JSONArray resultsArray = (JSONArray) jsonResponse.get("results");
+            var resultsArray = (JSONArray) jsonResponse.get("results");
 
-            JSONObject result = (JSONObject) resultsArray.get(0);
+            var result = (JSONObject) resultsArray.get(0);
 
-            JSONObject geometry = (JSONObject) result.get("geometry");
+            var geometry = (JSONObject) result.get("geometry");
 
-            JSONObject location = (JSONObject) geometry.get("location");
+            var location = (JSONObject) geometry.get("location");
 
             newLocation = new Location(address);
             newLocation.setCoordinates(new Coordinates(Double.valueOf(location.get("lat").toString()),
