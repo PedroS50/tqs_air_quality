@@ -23,16 +23,8 @@ public class Coordinates {
         return this.latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return this.longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     @Override
@@ -49,11 +41,6 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(latitude, longitude);
-    }
-
-    @Override
-    public String toString() {
-        return "{" + " latitude='" + getLatitude() + "'" + ", longitude='" + getLongitude() + "'" + "}";
     }
 
 }

@@ -3,7 +3,6 @@ package detiua.tqs.pedro93221.air_quality.cache;
 import java.util.Objects;
 
 public class CacheDetails {
-
     private String type;
     private int hits;
     private int misses;
@@ -14,6 +13,13 @@ public class CacheDetails {
         this.hits = 0;
         this.misses = 0;
         this.nRequests = 0;
+    }
+
+    public CacheDetails(String type, int hits, int misses, int nRequests) {
+        this.type = type;
+        this.hits = hits;
+        this.misses = misses;
+        this.nRequests = nRequests;
     }
 
     public void addHit() {

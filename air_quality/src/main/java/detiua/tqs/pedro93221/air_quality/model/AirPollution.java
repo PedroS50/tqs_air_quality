@@ -63,19 +63,13 @@ public class AirPollution {
             return false;
         }
         AirPollution airPollution = (AirPollution) o;
-        return aqi == airPollution.aqi && dtTimestamp == airPollution.dtTimestamp
+        return aqi == airPollution.aqi && dtTimestamp.equals(airPollution.dtTimestamp)
                 && Objects.equals(components, airPollution.components);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(aqi, dtTimestamp, components);
-    }
-
-    @Override
-    public String toString() {
-        return "{" + " aqi='" + getAqi() + "'" + ", dtTimestamp='" + getDtTimestamp() + "'" + ", components='"
-                + getComponents() + "'" + "}";
     }
 
 }

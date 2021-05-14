@@ -37,10 +37,6 @@ public class Cache {
         return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getTtl() {
         return this.ttl;
     }
@@ -53,33 +49,8 @@ public class Cache {
         return this.data;
     }
 
-    public void setData(Map<Location, AirPollutionAnalysis> data) {
-        this.data = data;
-    }
-
     public Map<Location, Long> getExpirationDates() {
         return this.expirationDates;
-    }
-
-    public void setExpirationDates(Map<Location, Long> expirationDates) {
-        this.expirationDates = expirationDates;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Cache)) {
-            return false;
-        }
-        Cache cache = (Cache) o;
-        return Objects.equals(type, cache.type) && ttl == cache.ttl && Objects.equals(data, cache.data)
-                && Objects.equals(expirationDates, cache.expirationDates);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, ttl, data, expirationDates);
     }
 
     @Override

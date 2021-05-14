@@ -64,9 +64,4 @@ public class Location {
         return Objects.hash(coordinates, address);
     }
 
-    @Override
-    public String toString() {
-        return "{" + " coordinates='" + getCoordinates() + "'" + ", address='" + getAddress() + "'" + "}";
-    }
-
 }

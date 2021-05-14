@@ -33,16 +33,8 @@ public class AirPollutionAnalysis {
         return this.airPollution;
     }
 
-    public void setAirPollution(List<AirPollution> airPollution) {
-        this.airPollution = airPollution;
-    }
-
     public Location getLocation() {
         return this.location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     @Override
@@ -60,11 +52,6 @@ public class AirPollutionAnalysis {
     @Override
     public int hashCode() {
         return Objects.hash(airPollution, location);
-    }
-
-    @Override
-    public String toString() {
-        return "{" + " location='" + getLocation() + "'" + ", airPollution='" + getAirPollution() + "'" + "}";
     }
 
 }

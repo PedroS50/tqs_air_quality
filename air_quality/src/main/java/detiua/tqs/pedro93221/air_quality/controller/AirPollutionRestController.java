@@ -23,9 +23,8 @@ public class AirPollutionRestController {
     @GetMapping(path = "/current")
     public AirPollutionAnalysis getCurrentAirPollution(
             @RequestParam(value = "address", required = true) String address) {
-        Location location = airPollutionService.getLocation(address);
 
-        AirPollutionAnalysis result = airPollutionService.getCurrentAirPollution(location);
+        AirPollutionAnalysis result = airPollutionService.getCurrentAirPollution(address);
 
         return result;
     }
@@ -33,9 +32,8 @@ public class AirPollutionRestController {
     @GetMapping(path = "/forecast")
     public AirPollutionAnalysis getForecastAirPollution(
             @RequestParam(value = "address", required = true) String address) {
-        Location location = airPollutionService.getLocation(address);
 
-        AirPollutionAnalysis result = airPollutionService.getForecastAirPollution(location);
+        AirPollutionAnalysis result = airPollutionService.getForecastAirPollution(address);
 
         return result;
     }
@@ -45,8 +43,6 @@ public class AirPollutionRestController {
             @RequestParam(value = "address", required = true) String address,
             @RequestParam(value = "start", required = true) String start,
             @RequestParam(value = "end", required = true) String end) {
-
-        Location location = airPollutionService.getLocation(address);
 
         LocalDateTime ldtStart = null, ldtEnd = null;
 
@@ -59,13 +55,19 @@ public class AirPollutionRestController {
         if (ldtStart == null || ldtEnd == null || ldtStart.isAfter(ldtEnd))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid time interval.");
 
-        AirPollutionAnalysis result = airPollutionService.getHistoricalAirPollution(location, ldtStart, ldtEnd);
+        AirPollutionAnalysis result = airPollutionService.getHistoricalAirPollution(address, ldtStart, ldtEnd);
 
         return result;
     }
 
     @GetMapping(path = "/cache")
-    public List<CacheDetails> getCacheDetails(@RequestParam(value = "type", required = false) String cacheType) {
-        return airPollutionService.getCache(cacheType);
+    public List<CacheDetails> getCacheDetails(@RequestParam(value = "type", required = false, defaultValue="") String cacheType) {
+        if (!cacheType.equals("Current") && !cacheType.equals("Forecast") && !cacheType.equals("History") && !cacheType.equals(""))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid cache type.");
+
+        if (!cacheType.equals(""))
+            return airPollutionService.getCache(cacheType);
+
+        return airPollutionService.getCache();
     }
 }
