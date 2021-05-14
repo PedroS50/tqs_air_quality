@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AirPollutionAnalysis } from '../classes/AirPollutionAnalysis';
 import { SearchService } from '../services/search.service';
 
@@ -17,7 +18,9 @@ export class AnalysisResultsComponent implements OnInit {
 
   analysis!: AirPollutionAnalysis;
 
-  constructor(public searchService: SearchService) { }
+  constructor(public searchService: SearchService, private titleService: Title) {
+    this.titleService.setTitle("APResults")
+  }
 
   ngOnInit(): void {
     this.searchService.getAQAnalysis()?.subscribe((value: AirPollutionAnalysis) => {

@@ -18,9 +18,13 @@
 		<sonar.projectKey>PedroS50_tqs_air_quality</sonar.projectKey>
 		<sonar.organization>pedros50</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<selenium-java.version>3.141.59</selenium-java.version>
+    	<webdrivermanager.version>4.4.0</webdrivermanager.version>
+		<cucumber.version>6.10.3</cucumber.version>
 	</properties>
 	<dependencies>
 
+		<!-- Springboot dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -60,11 +64,41 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Utils dependencies -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
+		<!-- Webpage dependencies -->
+		<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
 
 	</dependencies>
 

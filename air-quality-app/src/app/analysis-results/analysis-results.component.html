@@ -1,7 +1,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        <button class="btn btn-secondary" routerLink="/"><i class="bi bi-arrow-bar-left pr-2"></i>Go Back Home</button>
+        <button class="btn btn-secondary" id="backBtn" routerLink="/"><i class="bi bi-arrow-bar-left pr-2"></i>Go Back Home</button>
     </div>
 
     <div class="alert alert-danger mt-5" *ngIf="this.error">
@@ -15,7 +15,7 @@
     <div class="row mt-2" *ngIf="!this.error">
         <div class="col">
             <div class="row mb-0">
-                <h4><i class="bi bi-geo-alt-fill pr-2"></i>{{ this.analysis.location.address }}</h4>
+                <h4 id="locationHeader"><i class="bi bi-geo-alt-fill pr-2"></i>{{ this.analysis.location.address }}</h4>
                 <br />
                 <h4>({{ this.analysis.location.coordinates.latitude }}, {{ this.analysis.location.coordinates.longitude }})</h4>
             </div>

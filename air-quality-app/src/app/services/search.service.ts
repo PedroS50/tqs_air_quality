@@ -21,13 +21,13 @@ export class SearchService {
 
   getAQAnalysis(): Observable<AirPollutionAnalysis> {
   
-    if (this.searchCriteria.type == "current")
+    if (this.searchCriteria.type == "Current")
       return this.http.get<AirPollutionAnalysis>( this.currentAQApi + "?address=" + this.searchCriteria.address );
   
-    if (this.searchCriteria.type == "forecast")
+    if (this.searchCriteria.type == "Forecast")
       return this.http.get<AirPollutionAnalysis>( this.forecastAQApi + "?address=" + this.searchCriteria.address );
   
-    if (this.searchCriteria.type == "history")
+    if (this.searchCriteria.type == "Historical")
       return this.http.get<AirPollutionAnalysis>( this.historicalAQApi + "?address=" + this.searchCriteria.address 
                                                   + "&start=" + this.searchCriteria.startDate 
                                                   + "&end=" + this.searchCriteria.endDate);

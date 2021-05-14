@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="input-group">
                         <select id="typeSelect" class="custom-select col-2 bg-secondary text-white" #typeSelect (change)="changeType(typeSelect.value)">
-                            <option selected value="current">Current</option>
-                            <option value="forecast">Forecast</option>
-                            <option value="history">Historical</option>
+                            <option selected value="Current">Current</option>
+                            <option value="Forecast">Forecast</option>
+                            <option value="Historical">Historical</option>
                         </select>
                         <input type="text" id="addressInput" class="form-control" placeholder="Address" formControlName="inputAddress" [(ngModel)]="address">
-                        <button type="submit" class="btn btn-info ml-3" (click)="search()">Search</button>
+                        <button type="submit" id="searchBtn" class="btn btn-info ml-3" (click)="search()">Search</button>
                     </div>
                     
                 </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <h5 class="align-self-center mb-0">-</h5>
                                 <div class="col part">
-                                    <input type="text" id="startYear" class="form-control" placeholder="YYYY" formControlName="inputEndYear">
+                                    <input type="text" id="endYear" class="form-control" placeholder="YYYY" formControlName="inputEndYear">
                                 </div>
 
                                 <div class="col part ml-3">
