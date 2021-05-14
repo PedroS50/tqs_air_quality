@@ -30,7 +30,7 @@ class AirPollutionControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
-    private String aveiroAddress = "Portugal, Aveiro";
+    private String aveiroAddress = "Portugal,+Aveiro";
     private Location aveiro = new Location(new Coordinates(40.6405055   , -8.6537539), aveiroAddress);
 
     @Test
