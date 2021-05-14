@@ -15,6 +15,9 @@
 	<description>Air Quality API</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>PedroS50_tqs_air_quality</sonar.projectKey>
+		<sonar.organization>pedros50</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 
