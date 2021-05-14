@@ -20,13 +20,13 @@ import java.util.Iterator;
 
 @Repository
 public class AirPollutionRepository {
-    private final static String openweathermap_apiKey = loadOWMKey();
-    private final static String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + openweathermap_apiKey;
-    private final static String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=" + openweathermap_apiKey;
-    private final static String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history?appid=" + openweathermap_apiKey;
+    private static final String openweathermap_apiKey = loadOWMKey();
+    private static final String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + openweathermap_apiKey;
+    private static final String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=" + openweathermap_apiKey;
+    private static final String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history?appid=" + openweathermap_apiKey;
 
-    private final static String latRef = "&lat=";
-    private final static String lonRef = "&lon=";
+    private static final String LATREF = "&lat=";
+    private static final String LONREF = "&lon=";
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -50,8 +50,8 @@ public class AirPollutionRepository {
 
     public List<AirPollution> getCurrentAnalysis(Location location) {
         String requestUrl = CURRENT_API_URL;
-        requestUrl += latRef + location.getCoordinates().getLatitude();
-        requestUrl += lonRef + location.getCoordinates().getLongitude();
+        requestUrl += LATREF + location.getCoordinates().getLatitude();
+        requestUrl += LONREF + location.getCoordinates().getLongitude();
 
         List<AirPollution> airPolList = null;
 
@@ -72,8 +72,8 @@ public class AirPollutionRepository {
 
     public List<AirPollution> getForecastAnalysis(Location location) {
         String requestUrl = FORECAST_API_URL;
-        requestUrl += latRef + location.getCoordinates().getLatitude();
-        requestUrl += lonRef + location.getCoordinates().getLongitude();
+        requestUrl += LATREF + location.getCoordinates().getLatitude();
+        requestUrl += LONREF + location.getCoordinates().getLongitude();
 
         List<AirPollution> airPolList = null;
 
@@ -94,8 +94,8 @@ public class AirPollutionRepository {
 
     public List<AirPollution> getHistoricalAnalysis(Location location, LocalDateTime start, LocalDateTime end) {
         String requestUrl = HISTORICAL_API_URL;
-        requestUrl += latRef + location.getCoordinates().getLatitude();
-        requestUrl += lonRef + location.getCoordinates().getLongitude();
+        requestUrl += LATREF + location.getCoordinates().getLatitude();
+        requestUrl += LONREF + location.getCoordinates().getLongitude();
         requestUrl += "&start=" + converter.lDTtoEpoch(start);
         requestUrl += "&end=" + converter.lDTtoEpoch(end);
 
