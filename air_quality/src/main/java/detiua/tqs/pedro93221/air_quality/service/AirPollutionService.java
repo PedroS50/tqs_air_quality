@@ -44,7 +44,7 @@ public class AirPollutionService {
     private CacheDetails historicalCacheDetails = new CacheDetails(HIST_REF);
 
     public AirPollutionAnalysis getCurrentAirPollution(String address) {
-        Location location = locationRepository.getLocation(address);
+        Location location = locationRepository.getLocation(address); 
 
         currentCacheDetails.addRequest();
 
