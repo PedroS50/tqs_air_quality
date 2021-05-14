@@ -25,7 +25,7 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TqsAirQualityApplication.class)
 @AutoConfigureMockMvc
-class AirPollutionControllerIntegrationTest {
+class AirPollutionControllerIT {
 
     @Autowired
     private MockMvc mvc;
