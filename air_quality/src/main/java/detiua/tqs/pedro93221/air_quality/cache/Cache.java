@@ -2,7 +2,6 @@ package detiua.tqs.pedro93221.air_quality.cache;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import detiua.tqs.pedro93221.air_quality.model.*;
 
