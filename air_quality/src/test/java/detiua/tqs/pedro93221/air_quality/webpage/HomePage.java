@@ -54,7 +54,7 @@ public class HomePage {
     @FindBy(id = "searchBtn")
     private WebElement searchBtn;
 
-
+ 
     //Constructor
 	public HomePage(WebDriver driver){
 		this.driver = driver;
