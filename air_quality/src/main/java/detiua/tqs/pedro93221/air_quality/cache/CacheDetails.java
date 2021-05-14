@@ -93,7 +93,7 @@ public class CacheDetails {
         if (!(o instanceof CacheDetails)) {
             return false;
         }
-        CacheDetails cacheDetails = (CacheDetails) o;
+        var cacheDetails = (CacheDetails) o;
         return Objects.equals(type, cacheDetails.type) && hits == cacheDetails.hits && misses == cacheDetails.misses
                 && nRequests == cacheDetails.nRequests;
     }

@@ -33,7 +33,7 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TqsAirQualityApplication.class)
 @AutoConfigureMockMvc
-public class AirPollutionRestControllerTest {
+class AirPollutionRestControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -45,12 +45,12 @@ public class AirPollutionRestControllerTest {
     private Location aveiro = new Location(new Coordinates(40.640506, -8.653754), aveiroAddress);
 
     @AfterEach
-    public void cleanUp() {
+    void cleanUp() {
         reset(airPollutionService);
     }
 
     @Test
-    public void whenGetCurrentAP_thenReturnValidAnalysis() throws Exception {
+    void whenGetCurrentAP_thenReturnValidAnalysis() throws Exception {
         AirPollutionAnalysis analysis = getAnalysis();
 
         given(airPollutionService.getCurrentAirPollution(aveiroAddress)).willReturn(analysis);
@@ -65,7 +65,7 @@ public class AirPollutionRestControllerTest {
     }
 
     @Test
-    public void whenGetForecastAP_thenReturnValidAnalysis() throws Exception {
+    void whenGetForecastAP_thenReturnValidAnalysis() throws Exception {
         AirPollutionAnalysis analysis = getAnalysis();
 
         given(airPollutionService.getForecastAirPollution(aveiroAddress)).willReturn(analysis);
@@ -80,7 +80,7 @@ public class AirPollutionRestControllerTest {
     }
 
     @Test
-    public void whenGetHistoricalAP_thenReturnValidAnalysis() throws Exception {
+    void whenGetHistoricalAP_thenReturnValidAnalysis() throws Exception {
         AirPollutionAnalysis analysis = getAnalysis();
 
         LocalDateTime start = LocalDateTime.now();
@@ -98,7 +98,7 @@ public class AirPollutionRestControllerTest {
     }
 
     @Test
-    public void whenGetHistoricalAPInvalidInterval_thenReturnNull() throws Exception {
+    void whenGetHistoricalAPInvalidInterval_thenReturnNull() throws Exception {
         AirPollutionAnalysis analysis = getAnalysis();
 
         LocalDateTime end = LocalDateTime.now();
@@ -112,7 +112,7 @@ public class AirPollutionRestControllerTest {
     }
 
     @Test
-    public void whenGetCache_thenReturnCacheDetails() throws Exception {
+    void whenGetCache_thenReturnCacheDetails() throws Exception {
         CacheDetails currentCache = new CacheDetails("Current");
         CacheDetails forecastCache = new CacheDetails("Forecast");
         CacheDetails historyCache = new CacheDetails("History");
@@ -138,13 +138,13 @@ public class AirPollutionRestControllerTest {
     }
 
     @Test
-    public void whenGetCacheTypeInvalid_thenThrowResponseStatusException() throws Exception {
+    void whenGetCacheTypeInvalid_thenThrowResponseStatusException() throws Exception {
         mvc.perform(get("/api/cache?type=Invalid").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
 
     }    
 
-    public AirPollutionAnalysis getAnalysis() {
+    AirPollutionAnalysis getAnalysis() {
         AirPollution airPol1 = new AirPollution(2, LocalDateTime.parse("2021-05-14T04:00:00"), new Components(205.28, 0.0, 1.11, 95.84, 1.36, 1.31, 3.64, 0.05));
 
         List<AirPollution> results = new ArrayList<AirPollution>(Arrays.asList(airPol1));

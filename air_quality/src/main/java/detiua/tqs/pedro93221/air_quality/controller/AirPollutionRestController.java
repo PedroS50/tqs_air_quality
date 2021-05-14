@@ -24,18 +24,14 @@ public class AirPollutionRestController {
     public AirPollutionAnalysis getCurrentAirPollution(
             @RequestParam(value = "address", required = true) String address) {
 
-        AirPollutionAnalysis result = airPollutionService.getCurrentAirPollution(address);
-
-        return result;
+        return airPollutionService.getCurrentAirPollution(address);
     }
 
     @GetMapping(path = "/forecast")
     public AirPollutionAnalysis getForecastAirPollution(
             @RequestParam(value = "address", required = true) String address) {
 
-        AirPollutionAnalysis result = airPollutionService.getForecastAirPollution(address);
-
-        return result;
+        return airPollutionService.getForecastAirPollution(address);
     }
 
     @GetMapping(path = "/history")
@@ -44,20 +40,20 @@ public class AirPollutionRestController {
             @RequestParam(value = "start", required = true) String start,
             @RequestParam(value = "end", required = true) String end) {
 
-        LocalDateTime ldtStart = null, ldtEnd = null;
+        LocalDateTime ldtStart = null;
+        LocalDateTime ldtEnd = null;
 
         try {
             ldtStart = LocalDateTime.parse(start);
             ldtEnd = LocalDateTime.parse(end);
         } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid time format.");
         }
 
         if (ldtStart == null || ldtEnd == null || ldtStart.isAfter(ldtEnd))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid time interval.");
 
-        AirPollutionAnalysis result = airPollutionService.getHistoricalAirPollution(address, ldtStart, ldtEnd);
-
-        return result;
+        return airPollutionService.getHistoricalAirPollution(address, ldtStart, ldtEnd);
     }
 
     @GetMapping(path = "/cache")

@@ -13,35 +13,35 @@ import java.util.concurrent.TimeUnit;
 
 import detiua.tqs.pedro93221.air_quality.model.*;
 
-public class CacheUnitTest {
+class CacheUnitTest {
     Cache myCache;
     int TIME_TO_LIVE = 1000;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         myCache = new Cache(TIME_TO_LIVE, "current");
     }
 
     @AfterEach
-    public void cleanUp() {
+    void cleanUp() {
 
     }
 
     @Test
-    public void whenInitialized_dataStructuresAreEmpty() {
+    void whenInitialized_dataStructuresAreEmpty() {
         assertThat( myCache.getExpirationDates().size(), is(0) );
         assertThat( myCache.getData().size(), is(0) );
     }
 
     @Test
-    public void whenCacheEmpty_thenReturnFalse() {
+    void whenCacheEmpty_thenReturnFalse() {
         Location newLocation = new Location(new Coordinates(0, 0), "Aveiro");
 
         assertThat( myCache.exists(newLocation), is(false) );
     }
 
     @Test
-    public void whenAddedToCache_thenReturnTrue() {
+    void whenAddedToCache_thenReturnTrue() {
         Location newLocation1 = new Location(new Coordinates(0, 0), "Aveiro");
         Location newLocation2 = new Location(new Coordinates(1, 1), "Porto");
 
@@ -54,7 +54,7 @@ public class CacheUnitTest {
     }
 
     @Test
-    public void whenLocationInCache_thenReturnAirPollutionAnalysis() {
+    void whenLocationInCache_thenReturnAirPollutionAnalysis() {
         Location newLocation = new Location(new Coordinates(0, 0), "Aveiro");
 
         List<AirPollution> data = new ArrayList<>();
@@ -68,7 +68,7 @@ public class CacheUnitTest {
     }
 
     @Test
-    public void whenDataIsAdded_thenExpirationDateIsAdded() {
+    void whenDataIsAdded_thenExpirationDateIsAdded() {
         Location newLocation = new Location(new Coordinates(0, 0), "Aveiro");
 
         myCache.setAnalysis(newLocation, loadAirPollutionAnalysis(newLocation));
@@ -77,7 +77,7 @@ public class CacheUnitTest {
     }
 
     @Test
-    public void whenDataExpires_thenExistsReturnsFalse() throws InterruptedException {
+    void whenDataExpires_thenExistsReturnsFalse() throws InterruptedException {
         Location newLocation = new Location(new Coordinates(0, 0), "Aveiro");
 
         myCache.setAnalysis(newLocation, loadAirPollutionAnalysis(newLocation));
@@ -88,7 +88,7 @@ public class CacheUnitTest {
 
     }
 
-    public AirPollutionAnalysis loadAirPollutionAnalysis(Location location) {
+    AirPollutionAnalysis loadAirPollutionAnalysis(Location location) {
         List<AirPollution> data = new ArrayList<>();
         data.add( new AirPollution(1, LocalDateTime.now(), new Components(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0)) );
         

@@ -20,17 +20,19 @@ import java.util.Iterator;
 
 @Repository
 public class AirPollutionRepository {
-    private final String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution";
-    private final String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast";
-    private final String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history";
+    private final static String openweathermap_apiKey = loadOWMKey();
+    private final static String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + openweathermap_apiKey;
+    private final static String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=" + openweathermap_apiKey;
+    private final static String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history?appid=" + openweathermap_apiKey;
 
-    private final String openweathermap_apiKey = loadOWMKey();
+    private final static String latRef = "&lat=";
+    private final static String lonRef = "&lon=";
 
     private RestTemplate restTemplate = new RestTemplate();
 
     private Converter converter = new Converter();
 
-    private String loadOWMKey() {
+    private static String loadOWMKey() {
         String path = "src/main/java/detiua/tqs/pedro93221/air_quality/keys.txt";
 
         try {
@@ -47,9 +49,9 @@ public class AirPollutionRepository {
     }
 
     public List<AirPollution> getCurrentAnalysis(Location location) {
-        String requestUrl = CURRENT_API_URL + "?appid=" + openweathermap_apiKey;
-        requestUrl += "&lat=" + location.getCoordinates().getLatitude();
-        requestUrl += "&lon=" + location.getCoordinates().getLongitude();
+        String requestUrl = CURRENT_API_URL;
+        requestUrl += latRef + location.getCoordinates().getLatitude();
+        requestUrl += lonRef + location.getCoordinates().getLongitude();
 
         List<AirPollution> airPolList = null;
 
@@ -59,7 +61,7 @@ public class AirPollutionRepository {
             if (response.getStatusCode() == HttpStatus.OK) {
                 airPolList = processAirPolResults( response.getBody() );
             } else {
-                throw new Exception("Data fetch from external api failed. Status code: " + response.getStatusCode());
+                throw new IllegalStateException("Data fetch from external api failed. Status code: " + response.getStatusCode());
             }
         } catch (Exception e) {
             // To Do
@@ -69,9 +71,9 @@ public class AirPollutionRepository {
     }
 
     public List<AirPollution> getForecastAnalysis(Location location) {
-        String requestUrl = FORECAST_API_URL + "?appid=" + openweathermap_apiKey;
-        requestUrl += "&lat=" + location.getCoordinates().getLatitude();
-        requestUrl += "&lon=" + location.getCoordinates().getLongitude();
+        String requestUrl = FORECAST_API_URL;
+        requestUrl += latRef + location.getCoordinates().getLatitude();
+        requestUrl += lonRef + location.getCoordinates().getLongitude();
 
         List<AirPollution> airPolList = null;
 
@@ -81,7 +83,7 @@ public class AirPollutionRepository {
             if (response.getStatusCode() == HttpStatus.OK) {
                 airPolList = processAirPolResults( response.getBody() );
             } else {
-                throw new Exception("Data fetch from external api failed. Status code: " + response.getStatusCode());
+                throw new IllegalStateException("Data fetch from external api failed. Status code: " + response.getStatusCode());
             }
         } catch (Exception e) {
             // To Do
@@ -91,11 +93,11 @@ public class AirPollutionRepository {
     }
 
     public List<AirPollution> getHistoricalAnalysis(Location location, LocalDateTime start, LocalDateTime end) {
-        String requestUrl = HISTORICAL_API_URL + "?appid=" + openweathermap_apiKey;
-        requestUrl += "&lat=" + location.getCoordinates().getLatitude();
-        requestUrl += "&lon=" + location.getCoordinates().getLongitude();
-        requestUrl += "&start=" + converter.LDTtoEpoch(start);
-        requestUrl += "&end=" + converter.LDTtoEpoch(end);
+        String requestUrl = HISTORICAL_API_URL;
+        requestUrl += latRef + location.getCoordinates().getLatitude();
+        requestUrl += lonRef + location.getCoordinates().getLongitude();
+        requestUrl += "&start=" + converter.lDTtoEpoch(start);
+        requestUrl += "&end=" + converter.lDTtoEpoch(end);
 
         List<AirPollution> airPolList = null;
 
@@ -105,7 +107,7 @@ public class AirPollutionRepository {
             if (response.getStatusCode() == HttpStatus.OK) {
                 airPolList = processAirPolResults( response.getBody() );
             } else {
-                throw new Exception("Data fetch from external air pollution api failed. Status code: " + response.getStatusCode());
+                throw new IllegalStateException("Data fetch from external air pollution api failed. Status code: " + response.getStatusCode());
             }
         } catch (Exception e) {
             // To Do
@@ -118,26 +120,26 @@ public class AirPollutionRepository {
         ArrayList<AirPollution> airPollutionResults = new ArrayList<>();
 
         try {
-            JSONParser parser = new JSONParser();
+            var parser = new JSONParser();
 
-            JSONObject jsonResponse = (JSONObject) parser.parse(apiResponse);
+            var jsonResponse = (JSONObject) parser.parse(apiResponse);
 
-            JSONArray resultsArray = (JSONArray) jsonResponse.get("list");
+            var resultsArray = (JSONArray) jsonResponse.get("list");
 
             Iterator<?> iterator = resultsArray.iterator();
 
             while (iterator.hasNext()) {
-                AirPollution airPol = new AirPollution();
+                var airPol = new AirPollution();
 
-                JSONObject result = (JSONObject) iterator.next();
+                var result = (JSONObject) iterator.next();
 
-                JSONObject main = (JSONObject) result.get("main");
+                var main = (JSONObject) result.get("main");
 
-                JSONObject components = (JSONObject) result.get("components");
+                var components = (JSONObject) result.get("components");
 
                 airPol.setAqi(Integer.valueOf(main.get("aqi").toString()));
 
-                airPol.setDtTimestamp(converter.EpochtoLDT(Long.valueOf(result.get("dt").toString())));
+                airPol.setDtTimestamp(converter.epochtoLDT(Long.valueOf(result.get("dt").toString())));
 
                 airPol.setComponents(new Components(
                     Double.valueOf(components.get("co").toString()),

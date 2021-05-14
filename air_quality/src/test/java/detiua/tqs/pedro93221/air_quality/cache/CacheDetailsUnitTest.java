@@ -6,28 +6,28 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class CacheDetailsUnitTest {
+class CacheDetailsUnitTest {
     CacheDetails cacheDetails;
     
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         cacheDetails = new CacheDetails("current");
     }
 
     @AfterEach
-    public void cleanUp() {
+    void cleanUp() {
 
     }
 
     @Test
-    public void whenInitialized_valuesAreZero() {
+    void whenInitialized_valuesAreZero() {
         assertThat( cacheDetails.getHits(), is(0) );
         assertThat( cacheDetails.getMisses(), is(0) );
         assertThat( cacheDetails.getNRequests(), is(0) );
     }
 
     @Test
-    public void whenAddHit_thenHitNumberIncreasesByOne() {
+    void whenAddHit_thenHitNumberIncreasesByOne() {
 
         int initial = cacheDetails.getHits();
         cacheDetails.addHit();
@@ -36,7 +36,7 @@ public class CacheDetailsUnitTest {
     }
 
     @Test
-    public void whenAddMiss_thenMissNumberIncreasesByOne() {
+    void whenAddMiss_thenMissNumberIncreasesByOne() {
 
         int initial = cacheDetails.getMisses();
         cacheDetails.addMiss();
@@ -45,7 +45,7 @@ public class CacheDetailsUnitTest {
     }
 
     @Test
-    public void whenAddRequest_thenRequestNumberIncreasesByOne() {
+    void whenAddRequest_thenRequestNumberIncreasesByOne() {
 
         int initial = cacheDetails.getNRequests();
         cacheDetails.addRequest();

@@ -13,10 +13,10 @@ public class AirPollution {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public int aqi;
+    private int aqi;
 
     @NotNull
-    public LocalDateTime dtTimestamp;
+    private LocalDateTime dtTimestamp;
 
     @Embedded
     @NotNull
@@ -62,7 +62,7 @@ public class AirPollution {
         if (!(o instanceof AirPollution)) {
             return false;
         }
-        AirPollution airPollution = (AirPollution) o;
+        var airPollution = (AirPollution) o;
         return aqi == airPollution.aqi && dtTimestamp.equals(airPollution.dtTimestamp)
                 && Objects.equals(components, airPollution.components);
     }

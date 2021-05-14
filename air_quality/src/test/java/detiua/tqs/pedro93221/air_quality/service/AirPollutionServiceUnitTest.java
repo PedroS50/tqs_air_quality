@@ -26,7 +26,7 @@ import detiua.tqs.pedro93221.air_quality.repository.AirPollutionRepository;
 import detiua.tqs.pedro93221.air_quality.repository.LocationRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class AirPollutionServiceUnitTest {
+class AirPollutionServiceUnitTest {
 
     @Mock(lenient = true)
     private AirPollutionRepository airPolRepository;
@@ -43,7 +43,7 @@ public class AirPollutionServiceUnitTest {
     private LocalDateTime startDate, endDate;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         aveiroAddress = "Portugal, Aveiro";
         portoAddress = "Portugal, Porto";
         aveiro = new Location(new Coordinates(10, 11), aveiroAddress);
@@ -70,7 +70,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetCurrentAPFromValidLocation_thenReturnValidAnalysis () {
+    void whenGetCurrentAPFromValidLocation_thenReturnValidAnalysis () {
         AirPollutionAnalysis airPolAnalysis = airPollutionService.getCurrentAirPollution(aveiroAddress);
         assertThat( airPolAnalysis, is(new AirPollutionAnalysis(airPolAveiroAnalysis, aveiro)) );
 
@@ -79,7 +79,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetCurrentAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
+    void whenGetCurrentAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
         assertThrows( ResponseStatusException.class, () -> { airPollutionService.getCurrentAirPollution(portoAddress); } );
         
         verifyGetLocationIsCalledOnce(portoAddress);
@@ -87,7 +87,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetForecastAPFromValidLocation_thenReturnValidAnalysis () {
+    void whenGetForecastAPFromValidLocation_thenReturnValidAnalysis () {
         AirPollutionAnalysis airPolAnalysis = airPollutionService.getForecastAirPollution(aveiroAddress);
 
         assertThat( airPolAnalysis, is(new AirPollutionAnalysis(airPolAveiroAnalysis, aveiro)) );
@@ -97,7 +97,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetForecastAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
+    void whenGetForecastAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
         assertThrows( ResponseStatusException.class, () -> { airPollutionService.getForecastAirPollution(portoAddress); } );
         
         verifyGetLocationIsCalledOnce(portoAddress);
@@ -105,7 +105,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetHistoricalAPFromValidLocation_thenReturnValidAnalysis () {
+    void whenGetHistoricalAPFromValidLocation_thenReturnValidAnalysis () {
         AirPollutionAnalysis airPolAnalysis = airPollutionService.getHistoricalAirPollution(aveiroAddress, startDate, endDate);
 
         assertThat( airPolAnalysis, is(new AirPollutionAnalysis(historicalAirPolAveiroAnalysis, aveiro)) );
@@ -115,7 +115,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenGetHistoricalAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
+    void whenGetHistoricalAPFromInvalidLocation_thenThrowsResponseStatusException () throws ResponseStatusException {
         assertThrows( ResponseStatusException.class, () -> { airPollutionService.getHistoricalAirPollution(portoAddress, startDate, endDate); } );
     
         verifyGetLocationIsCalledOnce(portoAddress);
@@ -123,7 +123,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenMultipleGetCurrentAP_thenCacheDetailsAreCorrect() {
+    void whenMultipleGetCurrentAP_thenCacheDetailsAreCorrect() {
         airPollutionService.getCurrentAirPollution(aveiroAddress);
         airPollutionService.getCurrentAirPollution(aveiroAddress);
 
@@ -134,7 +134,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenMultipleGetForecastAP_thenCacheDetailsAreCorrect() {
+    void whenMultipleGetForecastAP_thenCacheDetailsAreCorrect() {
         airPollutionService.getForecastAirPollution(aveiroAddress);
         airPollutionService.getForecastAirPollution(aveiroAddress);
 
@@ -146,7 +146,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenMultipleGetHistoricalAP_thenCacheDetailsAreCorrect() {
+    void whenMultipleGetHistoricalAP_thenCacheDetailsAreCorrect() {
         airPollutionService.getHistoricalAirPollution(aveiroAddress, startDate, endDate);
         airPollutionService.getHistoricalAirPollution(aveiroAddress, startDate, endDate);
 
@@ -157,7 +157,7 @@ public class AirPollutionServiceUnitTest {
     }
 
     @Test
-    public void whenMultipleRequestsToDifferentEndpoints_thenCacheDetailsAreCorrect() {
+    void whenMultipleRequestsToDifferentEndpoints_thenCacheDetailsAreCorrect() {
         airPollutionService.getCurrentAirPollution(aveiroAddress);
         airPollutionService.getCurrentAirPollution(aveiroAddress);
         airPollutionService.getCurrentAirPollution(aveiroAddress);

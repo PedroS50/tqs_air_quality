@@ -43,7 +43,7 @@ public class LocationRepository {
     public Location getLocation(String address) {
         String requestUrl = GEOCODING_API_URL + "?key=" + geocoding_apiKey + "&address=" + address;
         String response = null;
-        //String response = restTemplate.getForObject(requestUrl, String.class);
+
         ResponseEntity<String> responseEnt = this.restTemplate.getForEntity(requestUrl, String.class);
             
         if (responseEnt.getStatusCode() == HttpStatus.OK) {

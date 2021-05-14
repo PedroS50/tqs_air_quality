@@ -26,14 +26,18 @@ public class AirPollutionService {
 
     private final int CACHE_TIME_TO_LIVE = 600000;
 
-    private Cache currentCache = new Cache(CACHE_TIME_TO_LIVE, "Current");
-    private CacheDetails currentCacheDetails = new CacheDetails("Current");
+    private final static String currRef = "Current";
+    private final static String foreRef = "Forecast";
+    private final static String histRef = "History";
 
-    private Cache forecastCache = new Cache(CACHE_TIME_TO_LIVE, "Forecast");
-    private CacheDetails forecastCacheDetails = new CacheDetails("Forecast");
+    private Cache currentCache = new Cache(CACHE_TIME_TO_LIVE, currRef);
+    private CacheDetails currentCacheDetails = new CacheDetails(currRef);
 
-    private Cache historicalCache = new Cache(CACHE_TIME_TO_LIVE, "History");
-    private CacheDetails historicalCacheDetails = new CacheDetails("History");
+    private Cache forecastCache = new Cache(CACHE_TIME_TO_LIVE, foreRef);
+    private CacheDetails forecastCacheDetails = new CacheDetails(foreRef);
+
+    private Cache historicalCache = new Cache(CACHE_TIME_TO_LIVE, histRef);
+    private CacheDetails historicalCacheDetails = new CacheDetails(histRef);
 
     public AirPollutionAnalysis getCurrentAirPollution(String address) {
         Location location = locationRepository.getLocation(address);
@@ -123,11 +127,11 @@ public class AirPollutionService {
     public List<CacheDetails> getCache(String type) {
         List<CacheDetails> cacheDetails = new ArrayList<>();
 
-        if (type.equals("Current"))
+        if (type.equals(currRef))
             cacheDetails.add(currentCacheDetails);
-        if (type.equals("Forecast"))
+        if (type.equals(foreRef))
             cacheDetails.add(forecastCacheDetails);
-        if (type.equals("History"))
+        if (type.equals(histRef))
             cacheDetails.add(historicalCacheDetails);
 
         return cacheDetails;

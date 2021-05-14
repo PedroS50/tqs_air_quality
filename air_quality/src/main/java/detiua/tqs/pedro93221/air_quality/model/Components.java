@@ -66,7 +66,7 @@ public class Components {
         if (!(o instanceof Components)) {
             return false;
         }
-        Components components = (Components) o;
+        var components = (Components) o;
         return co.equals(components.co) && no.equals(components.no) && no2.equals(components.no2) && o3.equals(components.o3
                ) && so3.equals(components.so3) && pm2_5.equals(components.pm2_5) && pm10.equals(components.pm10
                ) && nh3.equals(components.nh3);

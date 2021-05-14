@@ -44,7 +44,7 @@ public class AirPollutionAnalysis {
         if (!(o instanceof AirPollutionAnalysis)) {
             return false;
         }
-        AirPollutionAnalysis airPollutionAnalysis = (AirPollutionAnalysis) o;
+        var airPollutionAnalysis = (AirPollutionAnalysis) o;
         return Objects.equals(airPollution, airPollutionAnalysis.airPollution)
                 && Objects.equals(location, airPollutionAnalysis.location);
     }

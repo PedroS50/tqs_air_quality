@@ -8,25 +8,25 @@ import static org.hamcrest.core.Is.is;
 
 import java.time.LocalDateTime;
 
-public class ConverterTest {
+class ConverterTest {
     private Converter converter;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         converter = new Converter();
     }
 
     @Test
-    public void testConversionFromLDTToEpoch() {
+    void testConversionFromLDTToEpoch() {
         LocalDateTime timestamp = LocalDateTime.parse("2020-05-06T12:00:00");
 
-        assertThat( converter.LDTtoEpoch(timestamp), is(1588766400L) );
+        assertThat( converter.lDTtoEpoch(timestamp), is(1588766400L) );
     }
 
     @Test
-    public void testConversionFromEpochToLDT() {
+    void testConversionFromEpochToLDT() {
         long timestamp = 1588766400L;
 
-        assertThat( converter.EpochtoLDT(timestamp), is(LocalDateTime.parse("2020-05-06T12:00:00")) );
+        assertThat( converter.epochtoLDT(timestamp), is(LocalDateTime.parse("2020-05-06T12:00:00")) );
     }
 }
