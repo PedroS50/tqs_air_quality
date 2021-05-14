@@ -53,7 +53,7 @@ public class AirPollutionRepository {
 
         List<AirPollution> airPolList = null;
 
-        try {
+        try { 
             ResponseEntity<String> response = this.restTemplate.getForEntity(requestUrl, String.class);
             
             if (response.getStatusCode() == HttpStatus.OK) {
