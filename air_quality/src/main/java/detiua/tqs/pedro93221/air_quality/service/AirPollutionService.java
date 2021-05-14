@@ -13,10 +13,14 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
 public class AirPollutionService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AirPollutionService.class);
     
     @Autowired
     private AirPollutionRepository airPollutionRepository;
@@ -26,18 +30,18 @@ public class AirPollutionService {
 
     private final int CACHE_TIME_TO_LIVE = 600000;
 
-    private final static String currRef = "Current";
-    private final static String foreRef = "Forecast";
-    private final static String histRef = "History";
+    private final static String CURR_REF = "Current";
+    private final static String FORE_REF = "Forecast";
+    private final static String HIST_REF = "History";
 
-    private Cache currentCache = new Cache(CACHE_TIME_TO_LIVE, currRef);
-    private CacheDetails currentCacheDetails = new CacheDetails(currRef);
+    private Cache currentCache = new Cache(CACHE_TIME_TO_LIVE, CURR_REF);
+    private CacheDetails currentCacheDetails = new CacheDetails(CURR_REF);
 
-    private Cache forecastCache = new Cache(CACHE_TIME_TO_LIVE, foreRef);
-    private CacheDetails forecastCacheDetails = new CacheDetails(foreRef);
+    private Cache forecastCache = new Cache(CACHE_TIME_TO_LIVE, FORE_REF);
+    private CacheDetails forecastCacheDetails = new CacheDetails(FORE_REF);
 
-    private Cache historicalCache = new Cache(CACHE_TIME_TO_LIVE, histRef);
-    private CacheDetails historicalCacheDetails = new CacheDetails(histRef);
+    private Cache historicalCache = new Cache(CACHE_TIME_TO_LIVE, HIST_REF);
+    private CacheDetails historicalCacheDetails = new CacheDetails(HIST_REF);
 
     public AirPollutionAnalysis getCurrentAirPollution(String address) {
         Location location = locationRepository.getLocation(address);
@@ -45,14 +49,17 @@ public class AirPollutionService {
         currentCacheDetails.addRequest();
 
         if (currentCache.exists(location)) {
+            logger.info("LOGGER: GET /api/current - Retrieving data from cache.");
             currentCacheDetails.addHit();
             return currentCache.getAnalysis(location);
         }
 
         List<AirPollution> results = airPollutionRepository.getCurrentAnalysis(location);
+        logger.info("LOGGER: GET /api/current - Retrieved data from external API: {}.", results);
         AirPollutionAnalysis analysis = null;
 
         if ( results == null ) {
+            logger.info("LOGGER: GET /api/current - ResponseStatusException: Invalid request. Make sure both the api key and the given arguments are valid. {}", HttpStatus.BAD_REQUEST);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid request. Make sure both the api key and the given arguments are valid.");
         } else {
             analysis =  new AirPollutionAnalysis(results, location);
@@ -70,14 +77,17 @@ public class AirPollutionService {
         forecastCacheDetails.addRequest();
 
         if (forecastCache.exists(location)) {
+            logger.info("LOGGER: GET /api/forecast - Retrieving data from cache.");
             forecastCacheDetails.addHit();
             return forecastCache.getAnalysis(location);
         }
 
         List<AirPollution> results = airPollutionRepository.getForecastAnalysis(location);
+        logger.info("LOGGER: GET /api/forecast - Retrieved data from external API: {}.", results);
         AirPollutionAnalysis analysis = null;
 
         if ( results == null ) {
+            logger.info("LOGGER: GET /api/forecast - ResponseStatusException: Invalid request. Make sure both the api key and the given arguments are valid. {}", HttpStatus.BAD_REQUEST);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid request. Make sure both the api key and the given arguments are valid.");
         } else {
             analysis =  new AirPollutionAnalysis(results, location);
@@ -95,14 +105,17 @@ public class AirPollutionService {
         historicalCacheDetails.addRequest();
 
         if (historicalCache.exists(location)) {
+            logger.info("LOGGER: GET /api/history - Retrieving data from cache.");
             historicalCacheDetails.addHit();
             return historicalCache.getAnalysis(location);
         }
 
         List<AirPollution> results = airPollutionRepository.getHistoricalAnalysis(location, start, end);
+        logger.info("LOGGER: GET /api/history - Retrieved data from external API: {}.", results);
         AirPollutionAnalysis analysis = null;
 
         if ( results == null ) {
+            logger.info("LOGGER: GET /api/history - ResponseStatusException: Invalid request. Make sure both the api key and the given arguments are valid. {}", HttpStatus.BAD_REQUEST);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid request. Make sure both the api key and the given arguments are valid.");
         } else {
             analysis =  new AirPollutionAnalysis(results, location);
@@ -127,11 +140,11 @@ public class AirPollutionService {
     public List<CacheDetails> getCache(String type) {
         List<CacheDetails> cacheDetails = new ArrayList<>();
 
-        if (type.equals(currRef))
+        if (type.equals(CURR_REF))
             cacheDetails.add(currentCacheDetails);
-        if (type.equals(foreRef))
+        if (type.equals(FORE_REF))
             cacheDetails.add(forecastCacheDetails);
-        if (type.equals(histRef))
+        if (type.equals(HIST_REF))
             cacheDetails.add(historicalCacheDetails);
 
         return cacheDetails;

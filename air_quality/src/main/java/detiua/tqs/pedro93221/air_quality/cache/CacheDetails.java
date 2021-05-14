@@ -38,52 +38,16 @@ public class CacheDetails {
         return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getHits() {
         return this.hits;
-    }
-
-    public void setHits(int hits) {
-        this.hits = hits;
     }
 
     public int getMisses() {
         return this.misses;
     }
 
-    public void setMisses(int misses) {
-        this.misses = misses;
-    }
-
     public int getNRequests() {
         return this.nRequests;
-    }
-
-    public void setNRequests(int nRequests) {
-        this.nRequests = nRequests;
-    }
-
-    public CacheDetails type(String type) {
-        setType(type);
-        return this;
-    }
-
-    public CacheDetails hits(int hits) {
-        setHits(hits);
-        return this;
-    }
-
-    public CacheDetails misses(int misses) {
-        setMisses(misses);
-        return this;
-    }
-
-    public CacheDetails nRequests(int nRequests) {
-        setNRequests(nRequests);
-        return this;
     }
 
     @Override

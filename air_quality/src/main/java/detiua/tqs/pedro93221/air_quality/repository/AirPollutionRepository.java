@@ -20,10 +20,10 @@ import java.util.Iterator;
 
 @Repository
 public class AirPollutionRepository {
-    private static final String openweathermap_apiKey = loadOWMKey();
-    private static final String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + openweathermap_apiKey;
-    private static final String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=" + openweathermap_apiKey;
-    private static final String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history?appid=" + openweathermap_apiKey;
+    private static final String OPENWEATHERMAP_APIKEY = loadOWMKey();
+    private static final String CURRENT_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + OPENWEATHERMAP_APIKEY;
+    private static final String FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=" + OPENWEATHERMAP_APIKEY;
+    private static final String HISTORICAL_API_URL = "http://api.openweathermap.org/data/2.5/air_pollution/history?appid=" + OPENWEATHERMAP_APIKEY;
 
     private static final String LATREF = "&lat=";
     private static final String LONREF = "&lon=";
@@ -33,12 +33,12 @@ public class AirPollutionRepository {
     private Converter converter = new Converter();
 
     private static String loadOWMKey() {
-        String path = "src/main/java/detiua/tqs/pedro93221/air_quality/keys.txt";
+        var path = "src/main/java/detiua/tqs/pedro93221/air_quality/keys.txt";
 
         try {
-            JSONParser parser = new JSONParser();
+            var parser = new JSONParser();
 
-            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(path));
+            var jsonObject = (JSONObject) parser.parse(new FileReader(path));
 
             return (String) jsonObject.get("openweathermap");
 
